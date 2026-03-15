@@ -175,23 +175,42 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* ── Scroll UI ── */}
+      {/* ── Scroll UI (Left & Right) ── */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        className="absolute bottom-10 left-10 flex flex-col items-center gap-3 z-20"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2.5 }}
       >
-        <div className="flex flex-col items-center gap-2 text-foreground/20 group cursor-pointer hover:text-blue-400 transition-colors">
-          <span className="text-[10px] font-bold tracking-[0.5em] uppercase">Initialize Scroll</span>
-          <div className="w-px h-16 bg-gradient-to-b from-blue-500/50 to-transparent relative">
+        <div className="flex flex-col items-center gap-2 text-foreground/20 group cursor-none hover:text-blue-400 transition-colors">
+          <span className="text-[8px] font-bold tracking-[0.4em] uppercase [writing-mode:vertical-rl] rotate-180">Initialize</span>
+          <div className="w-px h-12 bg-gradient-to-b from-blue-500/50 to-transparent relative">
             <motion.div 
               className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-blue-400 rounded-full shadow-[0_0_10px_rgba(59,130,246,1)]"
               animate={{ top: ['0%', '100%', '0%'] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
           </div>
-          <ChevronDown size={20} className="mt-2 animate-bounce" />
+          <ChevronDown size={14} className="animate-bounce" />
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-10 right-10 flex flex-col items-center gap-3 z-20"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 2.5 }}
+      >
+        <div className="flex flex-col items-center gap-2 text-foreground/20 group cursor-none hover:text-blue-400 transition-colors">
+          <span className="text-[8px] font-bold tracking-[0.4em] uppercase [writing-mode:vertical-rl]">Scroll</span>
+          <div className="w-px h-12 bg-gradient-to-b from-blue-500/50 to-transparent relative">
+            <motion.div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-blue-400 rounded-full shadow-[0_0_10px_rgba(59,130,246,1)]"
+              animate={{ top: ['0%', '100%', '0%'] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+          <ChevronDown size={14} className="animate-bounce" />
         </div>
       </motion.div>
 

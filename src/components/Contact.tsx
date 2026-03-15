@@ -94,17 +94,17 @@ export function Contact() {
                   href={item.href}
                   target={item.href?.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-6 p-6 rounded-2xl border ${item.borderColor} ${item.bgColor} backdrop-blur-md group hover:scale-[1.02] transition-all duration-300`}
+                  className={`flex items-center gap-6 p-6 rounded-2xl border ${item.borderColor} ${item.bgColor} backdrop-blur-md group hover:scale-[1.02] transition-all duration-300 relative overflow-hidden`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 + idx * 0.1 }}
                 >
-                  <div className={`p-4 rounded-xl ${item.bgColor} border ${item.borderColor} group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-300`}>
+                  <div className={`p-4 rounded-xl ${item.bgColor} border ${item.borderColor} group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-300 flex-shrink-0 z-10`}>
                     <item.icon className={item.color} size={28} />
                   </div>
-                  <div>
+                  <div className="z-10 overflow-hidden">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 mb-1">{item.label}</p>
-                    <p className="text-lg font-black text-foreground group-hover:text-blue-400 transition-colors uppercase tracking-tight">{item.value}</p>
+                    <p className="text-base sm:text-lg font-black text-foreground group-hover:text-blue-400 transition-colors uppercase tracking-tight break-all">{item.value}</p>
                   </div>
                 </motion.a>
               ))}
@@ -147,7 +147,7 @@ export function Contact() {
                 onSubmit={handleSubmit} 
                 className="space-y-4"
               >
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-foreground/60 uppercase tracking-wider mb-2">
                       Name
@@ -157,7 +157,7 @@ export function Contact() {
                       type="text"
                       required
                       placeholder="Your name"
-                      className="w-full px-4 py-3 rounded-xl bg-foreground/10 border border-foreground/15 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl bg-foreground/10 border border-foreground/15 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all text-sm cursor-none"
                     />
                   </div>
                   <div>
@@ -169,7 +169,7 @@ export function Contact() {
                       type="email"
                       required
                       placeholder="your@email.com"
-                      className="w-full px-4 py-3 rounded-xl bg-foreground/10 border border-foreground/15 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl bg-foreground/10 border border-foreground/15 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition-all text-sm cursor-none"
                     />
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import { Footer } from './Footer';
 import { SideSocials } from './SideSocials';
 import { LoadingScreen } from './LoadingScreen';
 import { FuturisticBackground } from './FuturisticBackground';
+import { CustomCursor } from './CustomCursor';
 import { ThemeProvider } from '../context/ThemeProvider';
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -39,6 +40,7 @@ function LayoutInner({ children }: { children: ReactNode }) {
       </AnimatePresence>
 
       <FuturisticBackground />
+      <CustomCursor />
       <Navbar />
       <SideSocials />
       
