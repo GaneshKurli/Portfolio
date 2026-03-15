@@ -1,6 +1,6 @@
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/useTheme';
 
 const NAV_LINKS = [
   { name: 'Home', href: '#home' },

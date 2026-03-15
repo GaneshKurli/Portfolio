@@ -6,7 +6,7 @@ import { Footer } from './Footer';
 import { SideSocials } from './SideSocials';
 import { LoadingScreen } from './LoadingScreen';
 import { FuturisticBackground } from './FuturisticBackground';
-import { ThemeProvider } from '../context/ThemeContext';
+import { ThemeProvider } from '../context/ThemeProvider';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (

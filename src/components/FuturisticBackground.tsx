@@ -1,5 +1,39 @@
 import { useEffect, useRef } from 'react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/useTheme';
+
+class Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  canvasWidth: number;
+  canvasHeight: number;
+
+  constructor(width: number, height: number) {
+    this.canvasWidth = width;
+    this.canvasHeight = height;
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.size = Math.random() * 2 + 1;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.x < 0 || this.x > this.canvasWidth) this.vx *= -1;
+    if (this.y < 0 || this.y > this.canvasHeight) this.vy *= -1;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
 
 export function FuturisticBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,44 +55,14 @@ export function FuturisticBackground() {
       if (!canvas) return;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      init(); // Re-init particles on resize to ensure they stay in bounds
     };
 
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-
-      constructor() {
-        this.x = Math.random() * (canvas?.width || 1000);
-        this.y = Math.random() * (canvas?.height || 1000);
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.size = Math.random() * 2 + 1;
-      }
-
-      update() {
-        if (!canvas) return;
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
     const init = () => {
+      if (!canvas) return;
       particles = [];
       for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+        particles.push(new Particle(canvas.width, canvas.height));
       }
     };
 
@@ -66,12 +70,11 @@ export function FuturisticBackground() {
       if (!ctx || !canvas) return;
       const step = 60;
       const opacity = theme === 'dark' ? 0.03 : 0.05;
-      const color = theme === 'dark' ? `rgba(59, 130, 246, ${opacity})` : `rgba(59, 130, 246, ${opacity})`;
+      const color = `rgba(59, 130, 246, ${opacity})`;
       
       ctx.strokeStyle = color;
       ctx.lineWidth = 1;
 
-      // Vertical lines with perspective
       for (let x = 0; x <= canvas.width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -79,7 +82,6 @@ export function FuturisticBackground() {
         ctx.stroke();
       }
 
-      // Horizontal lines
       for (let y = 0; y <= canvas.height; y += step) {
         ctx.beginPath();
         ctx.moveTo(0, y);
@@ -101,7 +103,7 @@ export function FuturisticBackground() {
       
       particles.forEach((p, i) => {
         p.update();
-        p.draw();
+        p.draw(ctx);
 
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
@@ -142,3 +144,4 @@ export function FuturisticBackground() {
     />
   );
 }
+
